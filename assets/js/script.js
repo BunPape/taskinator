@@ -143,5 +143,22 @@ var deleteTask = function(taskId) {
   taskSelected.remove();
 };
 
+var taskStatusChangeHandler = function(event){
+  var eventEl = event.target;
+  var taskId = eventEl.getAttribute("data-task-id");
+  var statusValue = eventEl.value.toLowerCase();
+  var taskSelected = document.querySelector(".task-item[data-task-id= '" + taskId + "']")
+
+  if (statusValue === "to do") {
+    tasksToDoEl.appendChild(taskSelected);
+  }
+  else if (statusValue === "in progress") {
+    tasksInProgressEl.appendChild(taskSelected)
+  }
+  else if (statusValue === "completed") {
+    tasksCompletedEl.appendChild(taskSelected);
+  }
+};
+
 formEl.addEventListener("submit", taskFormHandler);
-pageContentEl.addEventListener("click", taskButtonHandler)
+pageContentEl.addEventListener("change", taskStatusChangeHandler)
